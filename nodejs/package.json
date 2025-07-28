@@ -1,0 +1,21 @@
+{
+  "name": "fibonacci-instrumentation",
+  "version": "1.0.0",
+  "description": "Node.js example of automatic instrumentation using require-in-the-middle",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "instrumented": "node -r ./instrumentation.js app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "instrumentation",
+    "require-in-the-middle",
+    "fibonacci"
+  ],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "require-in-the-middle": "^5.0.0"
+  }
+}
