@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'com.example'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'net.bytebuddy:byte-buddy:1.14.11'
+    implementation 'net.bytebuddy:byte-buddy-agent:1.14.11'
+}
+
+compileJava {
+    options.compilerArgs += ['-Xlint:deprecation']
+}
+
+jar {
+    manifest {
+        attributes 'Premain-Class': 'com.example.FibonacciAgent'
+    }
+}
+
+shadowJar {
+    manifest {
+        attributes 'Premain-Class': 'com.example.FibonacciAgent'
+    }
+} 

@@ -1,0 +1,4 @@
+rootProject.name = 'fibonacci-instrumentation'
+
+include 'app'
+include 'agent' 
