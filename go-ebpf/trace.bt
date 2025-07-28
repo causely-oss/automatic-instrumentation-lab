@@ -1,0 +1,13 @@
+#!/usr/bin/env bpftrace
+
+uprobe:/app/fibonacci:main.fibonacci
+{
+    @start[tid] = nsecs;
+}
+
+uretprobe:/app/fibonacci:main.fibonacci /@start[tid]/
+{
+    $delta = nsecs - @start[tid];
+    printf("fibonacci() duration: %d ns\n", $delta);
+    delete(@start[tid]);
+}
