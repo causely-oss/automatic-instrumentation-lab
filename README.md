@@ -1,27 +1,78 @@
 # Automatic Instrumentation Lab
 
-This project is a multi-language lab designed to explore automatic instrumentation techniques across different programming environments. It includes implementations in Go, Java, Node.js, and PHP, each demonstrating unique aspects of instrumentation.
+This repository contains a lab to explore different techniques of automatic instrumentation. [Automatic Instrumentation](https://opentelemetry.io/docs/concepts/glossary/#automatic-instrumentation) _"[r]efers to telemetry collection methods that do not require the end-user to modify application's source code. Methods vary by programming language, and examples include bytecode injection or monkey patching."_
 
-## Instrumentation Mechanisms
+The examples in this repository are for educational purpose to provide insights into those different techniques and to uncover how they work. The code here should not be used as a starting point for real implementations, since certain details are skipped or tooling is available that is better suited for real world use cases. It is also recommended
 
-### Go Compile-Time Instrumentation
+You will find the following techniques:
 
-**Location**: `go-compile-time/` directory
-**Structure**:
-- `app/` - Contains the standalone Fibonacci application
-- `build-tool.go` - Minimal AST-based build tool for instrumentation
-- `Makefile` and `build-integrated.sh` - Build automation
+- [Monkey Patching](#monkey-patching-nodejs)
+- [Byte Code Instrumentation](#byte-code-instrumentation-java)
+- [Compile-Time Instrumentation](#compile-time-instrumentation-go)
+- [eBPF based instrumentation](#ebpf-based-instrumentation-go)
+- [Observer API (PHP)](#php-observer-api-php)
 
-**Prerequisites**: Go 1.16+
+## Instrumentation Techniques
 
-**Mechanism**: AST (Abstract Syntax Tree) manipulation during build
+### Monkey Patching (Node.js)
 
-- Uses Go's `go/ast` package to parse and modify the source code
-- Injects a timing function and a `defer` statement into the `fibonacci` function
-- Adds the `time` import to the file
-- Demonstrates compile-time code transformation for automatic tracing
+Monkey patching is a technique that involves modifying or extending existing code at runtime by replacing functions, methods, or modules with instrumented versions. This approach intercepts function calls and adds observability without requiring changes to the original source code.
 
-**How to Run**:
+**Languages**: This technique is commonly used in dynamic languages like JavaScript (Node.js), Python, Ruby, and other interpreted languages that support runtime modification of functions and modules.
+
+**How to Run the Tutorial**:
+
+```bash
+cd nodejs/
+# Install dependencies
+npm install
+
+# Run without instrumentation (normal execution)
+node app.js 5
+
+# Run with instrumentation (instrumented execution)
+node -r ./instrumentation.js app.js 5
+```
+
+**OpenTelemetry Projects**:
+
+- [OpenTelemetry JavaScript](https://github.com/open-telemetry/opentelemetry-js) - Uses monkey patching for automatic instrumentation of Node.js applications
+- [OpenTelemetry Python](https://github.com/open-telemetry/opentelemetry-python) - Employs monkey patching for automatic instrumentation
+- [OpenTelemetry Ruby](https://github.com/open-telemetry/opentelemetry-ruby) - Uses monkey patching for automatic instrumentation
+
+### Byte Code Instrumentation (Java)
+
+Byte code instrumentation involves modifying the compiled bytecode of applications at runtime to add observability hooks. This technique works at the JVM level, allowing instrumentation of any Java application without source code access. It leverages the Java Instrumentation API to transform classes as they are loaded by the JVM.
+
+**Languages**: This technique is primarily used in JVM-based languages (Java, Kotlin, Scala, Groovy) and can also be applied to other bytecode-based languages like .NET (CIL instrumentation).
+
+**How to Run the Tutorial**:
+
+```bash
+cd java/
+# Build the project
+./gradlew build
+
+# Run without agent (normal execution)
+java -jar app/build/libs/app-1.0.0.jar 5
+
+# Run with agent (instrumented execution)
+java -javaagent:agent/build/libs/agent-1.0.0-all.jar -jar app/build/libs/app-1.0.0.jar 5
+```
+
+**OpenTelemetry Projects**:
+
+- [OpenTelemetry Java](https://github.com/open-telemetry/opentelemetry-java) - Uses bytecode instrumentation for automatic instrumentation
+- [OpenTelemetry Java Instrumentation](https://github.com/open-telemetry/opentelemetry-java-instrumentation) - Dedicated project for Java automatic instrumentation using bytecode manipulation
+- [OpenTelemetry .NET](https://github.com/open-telemetry/opentelemetry-dotnet) - Uses CIL instrumentation for automatic instrumentation
+
+### Compile-Time Instrumentation (Go)
+
+Compile-time instrumentation involves modifying source code during the build process to inject observability code. This technique uses Abstract Syntax Tree (AST) manipulation to transform code before compilation, ensuring that instrumentation is baked into the final binary. This approach provides zero runtime overhead and works well with statically compiled languages.
+
+**Languages**: This technique is most effective with statically compiled languages like Go, Rust, C++, and other languages that support AST manipulation during compilation.
+
+**How to Run the Tutorial**:
 
 ```bash
 cd go-compile-time
@@ -29,44 +80,23 @@ make run
 ```
 
 This will:
+
 - Build the integrated instrumentation tool
 - Instrument the Fibonacci app at build time
 - Run the instrumented binary
 
-**What gets instrumented:**
-- The `fibonacci` function is wrapped with a `defer trace_fibonacci()()` call
-- A timing function is injected to measure execution time
-- The `time` import is added if not present
+**OpenTelemetry Projects**:
 
-**Example Output:**
-```
-Function fibonacci took: 9.625µs
-Function fibonacci took: 41ns
-...
-55
-```
+- [OpenTelemetry Go Compile Instrumentation](https://github.com/open-telemetry/opentelemetry-go-compile-instrumentation) - Official OpenTelemetry project for Go compile-time instrumentation
+- [OpenTelemetry Rust](https://github.com/open-telemetry/opentelemetry-rust) - Uses compile-time macros for instrumentation
 
-This approach is similar to how production tools like [OpenTelemetry Go Compile Instrumentation](https://github.com/open-telemetry/opentelemetry-go-compile-instrumentation) work, but is simplified for tutorial and demonstration purposes.
+### eBPF-based Instrumentation (Go)
 
-### Go eBPF Instrumentation
+eBPF (Extended Berkeley Packet Filter) instrumentation leverages kernel-level tracing capabilities to observe application behavior without modifying the application code. This technique uses BPF programs that run in the kernel to attach probes to function entry and exit points, providing deep system-level observability with minimal overhead.
 
-**Location**: `go-ebpf/` directory
-**Files**:
+**Languages**: eBPF instrumentation is language-agnostic and can be applied to any compiled language running on Linux (C, C++, Go, Rust, etc.). It works at the system level, making it independent of the application's programming language.
 
-- `fibonacci.go`: Fibonacci sequence generator
-- `trace.bt`: BPF trace script for function instrumentation
-- `Dockerfile`: Docker setup for eBPF environment
-
-**Prerequisites**: Go 1.16+, Linux kernel with eBPF support, Docker (optional)
-
-**Mechanism**: Extended Berkeley Packet Filter (eBPF) for runtime tracing
-
-- Uses bpftrace to attach uprobes/uretprobes to function entry/exit points
-- Non-intrusive instrumentation that doesn't require code modification
-- Measures function execution time using kernel-level tracing
-- Demonstrates system-level observability without application changes
-
-**How to Run**:
+**How to Run the Tutorial**:
 
 **Docker (recommended for macOS/Windows)**:
 
@@ -94,96 +124,18 @@ sudo bpftrace trace.bt &
 ./fibonacci
 ```
 
-### Java Agent Instrumentation
+**OpenTelemetry Projects**:
 
-**Location**: `java/` directory
-**Files**:
+- [OpenTelemetry eBPF](https://github.com/open-telemetry/opentelemetry-ebpf) - Official OpenTelemetry project for eBPF-based instrumentation
+- [OpenTelemetry C++](https://github.com/open-telemetry/opentelemetry-cpp) - Can leverage eBPF for system-level tracing
 
-- `agent/src/main/java/com/example/FibonacciAgent.java`: Java agent for instrumenting the Fibonacci application
-- `app/src/main/java/com/example/FibonacciApp.java`: Main application demonstrating Fibonacci sequence
-- `build.gradle`: Gradle build configuration
-- `gradlew`: Gradle wrapper script
+### PHP Observer API (PHP)
 
-**Prerequisites**: JDK 21+
+The PHP Observer API is a low-level instrumentation technique that hooks directly into the PHP engine's execution flow. This approach uses C extensions to observe function calls at the Zend engine level, providing deep visibility into PHP application behavior without requiring code modifications. It operates at the language runtime level, similar to how other languages implement their instrumentation APIs.
 
-**Mechanism**: Java Instrumentation API with ByteBuddy
+**Languages**: This technique is specific to PHP and leverages the Zend Observer API introduced in PHP 8.0+. Similar approaches exist in other languages through their respective runtime APIs (e.g., Python's sys.settrace, Ruby's TracePoint).
 
-- Uses Java's `java.lang.instrument` package for runtime bytecode modification
-- ByteBuddy library for dynamic bytecode generation and manipulation
-- Implements a Java agent that intercepts method calls at runtime
-- Tracks call stack and execution time for specific methods
-- Demonstrates JVM-level instrumentation without source code changes
-
-**How to Run**:
-
-```bash
-cd java/
-# Build the project
-./gradlew build
-
-# Run without agent (normal execution)
-java -jar app/build/libs/app-1.0.0.jar 5
-
-# Run with agent (instrumented execution)
-java -javaagent:agent/build/libs/agent-1.0.0-all.jar -jar app/build/libs/app-1.0.0.jar 5
-```
-
-### Node.js Module Instrumentation
-
-**Location**: `nodejs/` directory
-**Files**:
-
-- `app.js`: Main application file
-- `fib.js`: Fibonacci sequence logic
-- `instrumentation.js`: Instrumentation logic for Node.js
-- `package.json`: Node.js package configuration
-
-**Prerequisites**: Node.js 14+ with npm
-
-**Mechanism**: Module loading interception with require-in-the-middle
-
-- Uses `require-in-the-middle` library to hook into Node.js module loading
-- Intercepts module exports and wraps functions with instrumentation
-- Monkey-patches functions to add timing and logging
-- Demonstrates how OpenTelemetry-style instrumentation works in Node.js
-- Non-intrusive approach that works with existing code
-
-**How to Run**:
-
-```bash
-cd nodejs/
-# Install dependencies
-npm install
-
-# Run without instrumentation (normal execution)
-node app.js 5
-
-# Run with instrumentation (instrumented execution)
-node -r ./instrumentation.js app.js 5
-```
-
-### PHP Zend Observer Instrumentation
-
-**Location**: `php-zend-observer/` directory
-**Files**:
-
-- `fibonacci.php`: Demo script for PHP instrumentation
-- `observer.c`: C extension for PHP instrumentation
-- `php_observer.h`: Header file for the PHP observer
-- `php.ini`: PHP configuration file for the demo
-- `config.m4`: Build configuration for the extension
-
-**Prerequisites**: PHP 8.0+ with development headers and build tools
-
-**Mechanism**: PHP Zend Observer API with C extension
-
-- Implements a PHP C extension using the Zend Observer API
-- Hooks into PHP function execution at the engine level
-- Observes function entry and exit points without code modification
-- Measures execution time and provides cumulative timing statistics
-- Demonstrates low-level PHP engine instrumentation
-
-**How to Run**:
+**How to Run the Tutorial**:
 
 ```bash
 cd php-zend-observer/
@@ -201,6 +153,11 @@ php fibonacci.php 5
 export PHPRC=$(pwd)
 php fibonacci.php 5
 ```
+
+**OpenTelemetry Projects**:
+
+- [OpenTelemetry PHP](https://github.com/open-telemetry/opentelemetry-php) - Uses the PHP Observer API for automatic instrumentation
+- [OpenTelemetry PHP Contrib](https://github.com/open-telemetry/opentelemetry-php-contrib) - Community contributions for PHP instrumentation
 
 ## Contributing
 
