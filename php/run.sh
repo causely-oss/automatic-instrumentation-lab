@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build
-make clean
+# make clean
 phpize
 ./configure --enable-observer
 make

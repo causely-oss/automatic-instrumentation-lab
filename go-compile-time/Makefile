@@ -11,14 +11,14 @@ help:
 build:
 	@echo "Building with integrated instrumentation (OpenTelemetry style)..."
 	go build -o build-tool build-tool.go
-	./build-tool build -o fibonacci-integrated app/fibonacci.go
-	@echo "Done! Run with: ./fibonacci-integrated"
+	./build-tool build -o fibonacci app/fibonacci.go
+	@echo "Done! Run with: ./fibonacci"
 
 # Run the instrumented version
 run: build
-	./fibonacci-integrated
+	./fibonacci
 
 # Clean build artifacts
 clean:
-	rm -f fibonacci-integrated
+	rm -f fibonacci
 	rm -f build-tool 

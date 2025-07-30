@@ -36,9 +36,8 @@ node -r ./instrumentation.js app.js 5
 
 **OpenTelemetry Projects**:
 
-- [OpenTelemetry JavaScript](https://github.com/open-telemetry/opentelemetry-js) - Uses monkey patching for automatic instrumentation of Node.js applications
-- [OpenTelemetry Python](https://github.com/open-telemetry/opentelemetry-python) - Employs monkey patching for automatic instrumentation
-- [OpenTelemetry Ruby](https://github.com/open-telemetry/opentelemetry-ruby) - Uses monkey patching for automatic instrumentation
+- [OpenTelemetry JavaScript](https://opentelemetry.io/docs/zero-code/js/) - Uses monkey patching for automatic instrumentation of Node.js applications
+- [OpenTelemetry Python](https://opentelemetry.io/docs/zero-code/python/) - Employs monkey patching for automatic instrumentation
 
 ### Byte Code Instrumentation (Java)
 
@@ -62,9 +61,8 @@ java -javaagent:agent/build/libs/agent-1.0.0-all.jar -jar app/build/libs/app-1.0
 
 **OpenTelemetry Projects**:
 
-- [OpenTelemetry Java](https://github.com/open-telemetry/opentelemetry-java) - Uses bytecode instrumentation for automatic instrumentation
-- [OpenTelemetry Java Instrumentation](https://github.com/open-telemetry/opentelemetry-java-instrumentation) - Dedicated project for Java automatic instrumentation using bytecode manipulation
-- [OpenTelemetry .NET](https://github.com/open-telemetry/opentelemetry-dotnet) - Uses CIL instrumentation for automatic instrumentation
+- [OpenTelemetry Java](https://opentelemetry.io/docs/zero-code/java/agent/) - Uses bytecode instrumentation for automatic instrumentation
+- [OpenTelemetry .NET](https://opentelemetry.io/docs/zero-code/dotnet/) - Uses CIL instrumentation for automatic instrumentation
 
 ### Compile-Time Instrumentation (Go)
 
@@ -88,7 +86,6 @@ This will:
 **OpenTelemetry Projects**:
 
 - [OpenTelemetry Go Compile Instrumentation](https://github.com/open-telemetry/opentelemetry-go-compile-instrumentation) - Official OpenTelemetry project for Go compile-time instrumentation
-- [OpenTelemetry Rust](https://github.com/open-telemetry/opentelemetry-rust) - Uses compile-time macros for instrumentation
 
 ### eBPF-based Instrumentation (Go)
 
@@ -126,8 +123,7 @@ sudo bpftrace trace.bt &
 
 **OpenTelemetry Projects**:
 
-- [OpenTelemetry eBPF](https://github.com/open-telemetry/opentelemetry-ebpf) - Official OpenTelemetry project for eBPF-based instrumentation
-- [OpenTelemetry C++](https://github.com/open-telemetry/opentelemetry-cpp) - Can leverage eBPF for system-level tracing
+- [OpenTelemetry eBPF](https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation) - Official OpenTelemetry project for eBPF-based instrumentation
 
 ### PHP Observer API (PHP)
 
@@ -156,8 +152,7 @@ php fibonacci.php 5
 
 **OpenTelemetry Projects**:
 
-- [OpenTelemetry PHP](https://github.com/open-telemetry/opentelemetry-php) - Uses the PHP Observer API for automatic instrumentation
-- [OpenTelemetry PHP Contrib](https://github.com/open-telemetry/opentelemetry-php-contrib) - Community contributions for PHP instrumentation
+- [OpenTelemetry PHP](https://opentelemetry.io/docs/zero-code/php/) - Uses the PHP Observer API for automatic instrumentation
 
 ## Contributing
 
