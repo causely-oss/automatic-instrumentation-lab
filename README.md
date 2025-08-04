@@ -105,7 +105,7 @@ This will:
 
 eBPF (Extended Berkeley Packet Filter) instrumentation leverages kernel-level tracing capabilities to observe application behavior without modifying the application code. This technique uses BPF programs that run in the kernel to attach probes to function entry and exit points, providing deep system-level observability with minimal overhead.
 
-**Languages**: eBPF instrumentation is language-agnostic and can be applied to any compiled language running on Linux (C, C++, Go, Rust, etc.). It works at the system level, making it independent of the application's programming language.
+**Languages**: eBPF instrumentation is language-agnostic and can be applied to almost any language running on Linux. It works at the system level, making it independent of the application's programming language.
 
 **How to Run the Tutorial**:
 
