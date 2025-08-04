@@ -2,8 +2,6 @@
 
 This repository contains a lab to explore different techniques of automatic instrumentation. [Automatic Instrumentation](https://opentelemetry.io/docs/concepts/glossary/#automatic-instrumentation) _"[r]efers to telemetry collection methods that do not require the end-user to modify application's source code. Methods vary by programming language, and examples include bytecode injection or monkey patching."_
 
-The examples in this repository are for educational purpose to provide insights into those different techniques and to uncover how they work. The code here should not be used as a starting point for real implementations, since certain details are skipped or tooling is available that is better suited for real world use cases. It is also recommended
-
 You will find the following techniques:
 
 - [Monkey Patching](#monkey-patching-nodejs)
@@ -11,6 +9,22 @@ You will find the following techniques:
 - [Compile-Time Instrumentation](#compile-time-instrumentation-go)
 - [eBPF based instrumentation](#ebpf-based-instrumentation-go)
 - [Observer API (PHP)](#php-observer-api-php)
+
+The examples in this repository are for educational purpose to provide insights into those different techniques and to uncover how they work. The code here should not be used as a starting point for real implementations, since certain details are skipped or tooling is available that is better suited for real world use cases. If you want to learn more about this topic, after going through this lab you should take a look into implementations by the OpenTelemetry project, e.g.
+
+- Monkey Patching
+  - [OpenTelemetry JavaScript Instrumentation Libraries](https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/packages)
+  - [OpenTelemetry Python Instrumentation Libraries](https://github.com/open-telemetry/opentelemetry-python-contrib/tree/main/instrumentation)
+- Byte Code Instrumentation
+  - [OpenTelemetry Java Instrumentation Libraries](https://github.com/open-telemetry/opentelemetry-java-instrumentation/tree/main/instrumentation)
+  - [OpenTelemetry .NET Instrumentation Libraries](https://github.com/open-telemetry/opentelemetry-dotnet-contrib/tree/main/src)
+- eBPF-based Instrumentation
+  - [OpenTelemetry eBPF Instrumentation (OBI)](https://github.com/open-telemetry/opentelemetry-ebpf-instrumentation)
+- Compile-time Instrumentation 
+  - [OpenTelemetry Go Compile-Time Instrumentation](https://github.com/open-telemetry/opentelemetry-go-compile-instrumentation)
+- PHP Observer API Instrumentation
+  - [OpenTelemetry PHP Instrumentation Libraries](https://github.com/open-telemetry/opentelemetry-php-contrib/tree/main/src/Instrumentation)
+
 
 ## Instrumentation Techniques
 
