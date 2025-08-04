@@ -6,6 +6,7 @@ phpize
 ./configure --enable-observer
 make
 
-# Run
+# We need to make sure that the php.ini which loads the created library is found when the application is run
 export PHPRC=$(pwd)
+# Run
 php fibonacci.php 
