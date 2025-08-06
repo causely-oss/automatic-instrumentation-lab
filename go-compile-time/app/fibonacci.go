@@ -14,7 +14,7 @@ func fibonacci(n int) int {
 }
 
 func main() {
-	fmt.Println(fibonacci(10))
+	fmt.Println(fibonacci(5))
 }
 
 func trace_fibonacci() func() {

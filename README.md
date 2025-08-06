@@ -28,7 +28,6 @@ The examples in this repository are for educational purpose to provide insights 
 - PHP Observer API Instrumentation
   - [OpenTelemetry PHP Instrumentation Libraries](https://github.com/open-telemetry/opentelemetry-php-contrib/tree/main/src/Instrumentation)
 
-
 ## Instrumentation Techniques
 
 ### Monkey Patching (Node.js)
@@ -50,6 +49,8 @@ node app.js 5
 # Run with instrumentation (instrumented execution)
 node -r ./instrumentation.js app.js 5
 ```
+
+**Demo**: Watch the instrumented application in action on [asciinema](https://asciinema.org/a/AqBkvGMjXqLuYIKtP3QdfKHTS)
 
 **OpenTelemetry Projects**:
 
@@ -75,6 +76,8 @@ java -jar app/build/libs/app-1.0.0.jar 5
 # Run with agent (instrumented execution)
 java -javaagent:agent/build/libs/agent-1.0.0-all.jar -jar app/build/libs/app-1.0.0.jar 5
 ```
+
+**Demo**: Watch the instrumented application in action on [asciinema](https://asciinema.org/a/CbCsDOaheyM4NvPLFq3G2RVyT)
 
 **OpenTelemetry Projects**:
 
