@@ -1,5 +1,8 @@
 # Automatic Instrumentation Lab
 
+[![Maintained by Causely](https://img.shields.io/badge/Maintained%20by-Causely.ai-blue)](https://www.causely.ai)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 This repository contains a lab to explore different techniques of automatic instrumentation. [Automatic Instrumentation](https://opentelemetry.io/docs/concepts/glossary/#automatic-instrumentation) _"[r]efers to telemetry collection methods that do not require the end-user to modify application's source code. Methods vary by programming language, and examples include bytecode injection or monkey patching."_
 
 You will find the following techniques:
