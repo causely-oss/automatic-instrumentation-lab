@@ -168,6 +168,18 @@ php fibonacci.php 5
 
 - [OpenTelemetry PHP](https://opentelemetry.io/docs/zero-code/php/) - Uses the PHP Observer API for automatic instrumentation
 
+## Testing All Instrumentations
+
+To verify that all instrumentations work correctly, you can run the comprehensive test script:
+
+```bash
+# Make the script executable (if not already)
+chmod +x test-all-instrumentations.sh
+
+# Run all tests
+./test-all-instrumentations.sh
+```
+
 ## Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request for any enhancements or bug fixes.
