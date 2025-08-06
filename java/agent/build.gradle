@@ -20,9 +20,8 @@ compileJava {
 }
 
 jar {
-    manifest {
-        attributes 'Premain-Class': 'com.example.FibonacciAgent'
-    }
+    dependsOn shadowJar
+    from shadowJar.archiveFile
 }
 
 shadowJar {
