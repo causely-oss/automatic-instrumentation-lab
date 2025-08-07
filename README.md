@@ -7,11 +7,11 @@ This repository contains a lab to explore different techniques of automatic inst
 
 You will find the following techniques:
 
-- [Monkey Patching](#monkey-patching-nodejs)
-- [Byte Code Instrumentation](#byte-code-instrumentation-java)
-- [Compile-Time Instrumentation](#compile-time-instrumentation-go)
-- [eBPF based instrumentation](#ebpf-based-instrumentation-go)
-- [Observer API (PHP)](#php-observer-api-php)
+- [Monkey Patching](#monkey-patching-nodejs) [📝](./nodejs/) [🎬](https://asciinema.org/a/AqBkvGMjXqLuYIKtP3QdfKHTS)
+- [Byte Code Instrumentation](#byte-code-instrumentation-java) [📝](./java/) [🎬](https://asciinema.org/a/CbCsDOaheyM4NvPLFq3G2RVyT)
+- [Compile-Time Instrumentation](#compile-time-instrumentation-go) [📝](./go-compile-time/) [🎬](https://asciinema.org/a/CZKVkiWCenE42OOPdJYKB9SSK)
+- [eBPF based instrumentation](#ebpf-based-instrumentation-go) [📝](./go-ebpf/)
+- [Observer API (PHP)](#php-observer-api-php) [📝](./php/) [🎬](https://asciinema.org/a/OX9193zka7CKb7J1yTdQy5dpx)
 
 The examples in this repository are for educational purpose to provide insights into those different techniques and to uncover how they work. The code here should not be used as a starting point for real implementations, since certain details are skipped or tooling is available that is better suited for real world use cases. If you want to learn more about this topic, after going through this lab you should take a look into implementations by the OpenTelemetry project, e.g.
 
@@ -94,14 +94,11 @@ Compile-time instrumentation involves modifying source code during the build pro
 
 ```bash
 cd go-compile-time
-make run
+make build
+./fibonacci
 ```
 
-This will:
-
-- Build the integrated instrumentation tool
-- Instrument the Fibonacci app at build time
-- Run the instrumented binary
+**Demo**: Watch the instrumented application in action on [asciinema](https://asciinema.org/a/CZKVkiWCenE42OOPdJYKB9SSK)
 
 **OpenTelemetry Projects**:
 
@@ -134,7 +131,7 @@ docker run --rm -it --privileged fibtrace /app/fibonacci
 ```bash
 cd go-ebpf/
 # Build the Go application
-go build -o fibonacci fibonacci.go
+go go build -gcflags="all=-N -l" -o fibonacci fibonacci.go
 
 # Run with bpftrace (requires root)
 sudo bpftrace trace.bt &
@@ -169,6 +166,8 @@ php fibonacci.php 5
 export PHPRC=$(pwd)
 php fibonacci.php 5
 ```
+
+**Demo**: Watch the instrumented application in action on [asciinema](https://asciinema.org/a/OX9193zka7CKb7J1yTdQy5dpx)
 
 **OpenTelemetry Projects**:
 
