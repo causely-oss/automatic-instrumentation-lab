@@ -10,7 +10,7 @@ You will find the following techniques:
 - [Monkey Patching](#monkey-patching-nodejs) [📝](./nodejs/) [🎬](https://asciinema.org/a/AqBkvGMjXqLuYIKtP3QdfKHTS)
 - [Byte Code Instrumentation](#byte-code-instrumentation-java) [📝](./java/) [🎬](https://asciinema.org/a/CbCsDOaheyM4NvPLFq3G2RVyT)
 - [Compile-Time Instrumentation](#compile-time-instrumentation-go) [📝](./go-compile-time/) [🎬](https://asciinema.org/a/CZKVkiWCenE42OOPdJYKB9SSK)
-- [eBPF based instrumentation](#ebpf-based-instrumentation-go) [📝](./go-ebpf/)
+- [eBPF based instrumentation](#ebpf-based-instrumentation-go) [📝](./go-ebpf/) [🎬](https://asciinema.org/a/6Z3nJP8mg0ZlZEpiAT4QHrQXj)
 - [Observer API (PHP)](#php-observer-api-php) [📝](./php/) [🎬](https://asciinema.org/a/OX9193zka7CKb7J1yTdQy5dpx)
 
 The examples in this repository are for educational purpose to provide insights into those different techniques and to uncover how they work. The code here should not be used as a starting point for real implementations, since certain details are skipped or tooling is available that is better suited for real world use cases. If you want to learn more about this topic, after going through this lab you should take a look into implementations by the OpenTelemetry project, e.g.
@@ -137,6 +137,8 @@ go go build -gcflags="all=-N -l" -o fibonacci fibonacci.go
 sudo bpftrace trace.bt &
 ./fibonacci
 ```
+
+**Demo**: Watch the instrumented application in action on [asciinema](https://asciinema.org/a/6Z3nJP8mg0ZlZEpiAT4QHrQXj)
 
 **OpenTelemetry Projects**:
 
