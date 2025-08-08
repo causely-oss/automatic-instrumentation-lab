@@ -1,0 +1,11 @@
+version: 2
+updates:
+  - package-ecosystem: docker
+    directory: /go-ebpf
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /nodejs
+    schedule:
+      interval: daily
