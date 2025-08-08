@@ -1,5 +1,5 @@
 # Stage 1: Build the Go Fibonacci binary
-FROM golang:1.22-bullseye@sha256:c89d51959c480f13e7830a33fa0174480227c8a027d0e18066e79a03cde174c4 AS builder
+FROM golang:1.24-bullseye@sha256:637f45ef9f8fb4228406268d544df3f1251703cda025f706902c3627fa621c54 AS builder
 WORKDIR /src
 COPY fibonacci.go .
 RUN go build -gcflags="all=-N -l" -o fibonacci fibonacci.go
